@@ -1,0 +1,51 @@
+GOLDPULSE UAE - GET YOUR APK VIA GITHUB (easiest possible way)
+==============================================================
+You need: a phone + any browser. No software installed. ~10 minutes.
+Most of that is just waiting for GitHub to build the file for you.
+
+STEP 1 - Make a free GitHub account
+  1. Go to https://github.com
+  2. Click "Sign up" -> use your email -> pick a password -> verify.
+     (Free plan is fine. Choose "Just me" / skip personalization.)
+
+STEP 2 - Create your project page (repository)
+  1. After login, click the "+" icon (top-right corner) -> "New repository"
+  2. Repository name:  goldpulse
+  3. Select PRIVATE
+  4. Tick the box "Add a README file"
+  5. Click the green "Create repository" button
+
+STEP 3 - Upload my files (this zip, already unzipped)
+  1. On your new repo page click "Add file" (right side) -> "Upload files"
+  2. Open the GoldPulse_UAE_GitHub_APK folder on your computer and
+     DRAG ALL OF ITS CONTENTS into the GitHub page:
+        pubspec.yaml          (1 file)
+        lib                   (1 folder)
+        assets                (1 folder)
+        .github               (1 folder - it may look hidden, it's there)
+  3. Wait for all files to show upload progress and finish.
+  4. Scroll down -> green "Commit changes" button.
+
+STEP 4 - Press the build button (GitHub makes the APK for you)
+  1. Click the "Actions" tab at the top of the repo page.
+  2. If you see a yellow warning, click "I understand my workflows,
+     go ahead and enable them".
+  3. Click "Build GoldPulse UAE APK" in the left list.
+  4. Click the "Run workflow" dropdown (right side) ->
+     green "Run workflow" button.
+  5. A yellow dot appears = it is building. Takes 5-10 minutes.
+     (Click the running job to watch the progress live if you like.)
+
+STEP 5 - Download your APK
+  1. When the yellow dot turns into a GREEN TICK, click the run name.
+  2. Scroll down to "Artifacts" -> click "GoldPulse-UAE-APK".
+  3. A zip downloads. Open it -> inside is: app-release.apk
+  4. Send app-release.apk to your phone (WhatsApp / cable / email).
+  5. On the phone tap it -> "Install" -> if asked, allow
+     "Install from unknown sources" for that app.
+  6. Done! GoldPulse UAE icon (gold G) is on your home screen.
+
+If anything goes red (build error), just tell me the red text you see
+and I will fix it for you immediately.
+
+- Developed by Pranav -
