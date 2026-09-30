@@ -13,6 +13,10 @@ jobs:
           channel: stable
       - name: Create Android project files
         run: flutter create --platforms android --org com.pranav .
+      - name: Enable Internet permission
+        run: |
+          sed -i '/<manifest/a\    <uses-permission android:name="android.permission.INTERNET"/>' android/app/src/main/AndroidManifest.xml
+          grep -q "android.permission.INTERNET" android/app/src/main/AndroidManifest.xml
       - name: Create app icons
         run: |
           mkdir -p assets/icon
