@@ -62,14 +62,29 @@ class GoldData {
   }
 }
 
+Future<double?> _trySource(String url, double Function(dynamic j) pick) async {
+  try {
+    final res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 8));
+    if (res.statusCode == 200) {
+      final v = pick(jsonDecode(res.body));
+      if (v > 0) return v;
+    }
+  } catch (_) {/* try next source */}
+  return null;
+}
+
 Future<GoldData> fetchGoldData() async {
   try {
-    final res = await http
-        .get(Uri.parse('https://api.gold-api.com/price/XAU'))
-        .timeout(const Duration(seconds: 8));
-    if (res.statusCode == 200) {
-      final j = jsonDecode(res.body);
-      final usdOz = (j['price'] as num).toDouble();
+    // Source 1: gold-api.com (XAU/USD per oz)
+    var usdOz = await _trySource(
+        'https://api.gold-api.com/price/XAU', (j) => (j['price'] as num).toDouble());
+    // Source 2: goldprice.org (XAU/USD per oz)
+    usdOz ??= await _trySource('https://data-asg.goldprice.org/dbXRates/USD',
+        (j) => (j['items'][0]['xauPrice'] as num).toDouble());
+    // Source 3: metals.live (XAU/USD per oz)
+    usdOz ??= await _trySource(
+        'https://api.metals.live/v1/spot', (j) => (j[0]['gold'] as num).toDouble());
+    if (usdOz != null) {
       final g24 = usdOz / ozToGram * usdAed;
       final rand = Random(DateTime.now().day * 31 + DateTime.now().hour + 7);
       final hist = <double>[];
@@ -625,7 +640,7 @@ class AboutTab extends StatelessWidget {
       ),
       const SizedBox(height: 16),
       const Center(child: Text('GoldPulse UAE', style: TextStyle(color: kGold, fontSize: 28, fontWeight: FontWeight.w800))),
-      const Center(child: Text('Live Gold Rate Monitor v1.0.0', style: TextStyle(color: Colors.white54))),
+      const Center(child: Text('Live Gold Rate Monitor v1.0.1', style: TextStyle(color: Colors.white54))),
       const SizedBox(height: 24),
       sectionCard(
         child: const Column(children: [
